@@ -7,7 +7,7 @@ public class CuentaCorriente {
 	private double saldo = 0;
 
 //nacionalidad que solo puede ser una de estas dos
-	enum Nacionalidad {
+	private enum Nacionalidad {
 		ESPAÑOLA, EXTRANJERA
 	};
 
@@ -57,10 +57,77 @@ public class CuentaCorriente {
 			
 			
 		}
-		
+		//si no es española es extranjera
 		if(!nacion.equals("ESPAÑOLA")) {
 			this.nacion = Nacionalidad.EXTRANJERA;
 		}
+	}
+	//getters y setters
+	public String getDNI() {
+		return DNI;
+		
+	}
+	public String getnombre() {
+		return nombre;
+		
+	}
+	public double getSaldo() {
+		return saldo;
+		
+	}
+	public void setnombre(String nombre) {
+		this.nombre=nombre;
+	}
+	public void setSaldo(double saldo) {
+		this.saldo=saldo;
+	}
+	public void setNacionalidad(Nacionalidad nacion) {
+		this.nacion=nacion;
+	}
+	public Nacionalidad getNacion() {
+		return nacion;
+	}
+	//funcion sacar dinero y se actualiza el saldo
+	public boolean sacarDinero(double cantidad) {
+		boolean exito=false;
+		
+		if(saldo-cantidad>=0) {
+			exito=true;
+			setSaldo(saldo-cantidad);
+		}
+		
+		return exito;
+	}
+	//funcion meter dinero y se actualiza el saldo
+	public boolean meterDinero(double cantidad) {
+		boolean exito=false;
+		
+		if(cantidad>=0) {
+			exito=true;
+			setSaldo(saldo+cantidad);
+		}
+		
+		return exito;
+	}
+	//se imprime la cadena
+	@Override
+	public String toString() {
+		String res="";
+		res="DNI: "+DNI+" ";
+		res+="Nombre: "+nombre+" ";
+		res+="saldo: "+saldo+" ";
+		res+="nacionalidad :"+nacion+" ";
+		return res;
+	}
+	//se comparan las cuentas si son iguales los dos campos
+	@Override
+	public boolean equals(Object obj) {
+		boolean isequal=false;
+		CuentaCorriente cc2=(CuentaCorriente)obj;
+		if(this.DNI.equals(cc2.DNI)&&this.nombre.equals(cc2.nombre)) {
+			isequal=true;
+		}
+		return isequal;
 	}
 	
 }
